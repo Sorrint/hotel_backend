@@ -1,14 +1,16 @@
 import mongoose from 'mongoose';
-import { DB_CONFIG } from '../config/db.config.js';
+import { DB_CONFIG, DB_CLOUD_CONFIG } from '../config/db.config.js';
 import chalk from 'chalk';
 import models from '../models/index.js';
 import bannersMock from '../mockData/banners.json' assert { type: 'json' };
 import menuMock from '../mockData/menuItems.json' assert { type: 'json' };
 import roomMock from '../mockData/rooms.json' assert { type: 'json' };
 import iconMock from '../mockData/icons.json' assert { type: 'json' };
-
+import roomTypeMock from '../mockData/roomTypes.json' assert { type: 'json' };
+import roleMock from '../mockData/roles.json' assert { type: 'json' };
 import db from '../models/index.js';
 
+const URL = DB_CLOUD_CONFIG.URL;
 const generateSimpleEntity = (data, model) => {
     return Promise.all(
         data.map(async ({ _id, ...exampleData }) => {
@@ -52,6 +54,16 @@ const findIcons = (iconIds, icons) => {
     }
 };
 
+const findRoomType = (typeId, types) => {
+    for (const type of roomTypeMock) {
+        if (typeId === type._id) {
+            for (const item of types) {
+                if (item.name === type.name) return item._id;
+            }
+        }
+    }
+};
+
 async function setInitialData() {
     const bannersData = await generateSimpleEntity(bannersMock, db.banners);
     if (bannersData.length) {
@@ -74,6 +86,19 @@ async function setInitialData() {
         console.log(`${chalk.red('Icons resolved DB x')}`);
     }
 
+    const roomTypeData = await generateSimpleEntity(roomTypeMock, db.roomType);
+    if (roomTypeData.length) {
+        console.log(`${chalk.yellow('RoomTypes in DB')} ${chalk.green('✓')}`);
+    } else {
+        console.log(`${chalk.red('RoomTypes resolved DB x')}`);
+    }
+
+    const rolesData = await generateSimpleEntity(roleMock, db.role);
+    if (rolesData.length) {
+        console.log(`${chalk.yellow('Roles in DB')} ${chalk.green('✓')}`);
+    } else {
+        console.log(`${chalk.red('Roles resolved DB x')}`);
+    }
     const rooms = await Promise.all(
         roomMock.map(async ({ _id, ...roomData }) => {
             try {
@@ -87,11 +112,10 @@ async function setInitialData() {
                 roomData.amenities = findIcons(roomData.amenities, iconsData);
                 if (roomData.properties) {
                     roomData.properties = roomData.properties.map((property) => {
-                        console.log(property.icon);
                         return { ...property, icon: findIcons(property.icon, iconsData) };
                     });
-                    console.log(roomData.properties);
                 }
+                roomData.type = findRoomType(roomData.type, roomTypeData);
                 const newRoom = new models.rooms(roomData);
                 await newRoom.save();
                 return newRoom;
@@ -100,7 +124,6 @@ async function setInitialData() {
             }
         })
     );
-    // const roomsData = await generateSimpleEntity(roomMock, db.rooms);
     if (rooms.length) {
         console.log(`${chalk.yellow('Rooms in DB')} ${chalk.green('✓')}`);
     } else {
@@ -110,6 +133,11 @@ async function setInitialData() {
 
 export function startDB() {
     mongoose.connect(`mongodb://${DB_CONFIG.HOST}:${DB_CONFIG.PORT}/${DB_CONFIG.DB}`);
+    // mongoose
+    //     .connect(URL, { dbName: 'hotel' })
+    //     .then(() => console.log('DB ok'))
+    //     .catch((err) => console.log(err));
+
     const db = mongoose.connection;
     db.on('error', () => {
         console.log(`${chalk.red('x MongoDB stasus: not connected')}`);
