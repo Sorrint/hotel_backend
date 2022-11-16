@@ -1,6 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
-import { DB_CONFIG } from './config/db.config.js';
+import { DB_CONFIG, DB_CLOUD_CONFIG } from './config/db.config.js';
 import router from './routes/post.route.js';
 import fileUpload from 'express-fileupload';
 
@@ -14,6 +14,10 @@ app.use('/api', router);
 async function startApp() {
     try {
         await mongoose.connect(`mongodb://${DB_CONFIG.HOST}:${DB_CONFIG.PORT}/${DB_CONFIG.DB}`);
+        // await mongoose
+        //     .connect(DB_CLOUD_CONFIG.URL)
+        //     .then((data) => console.log(data))
+        //     .catch((err) => console.log(err));
         app.listen(PORT, () => console.log('HERE Server started on Port' + PORT));
     } catch (error) {
         console.log(e);

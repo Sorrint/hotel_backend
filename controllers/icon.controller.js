@@ -3,10 +3,8 @@ import IconService from '../services/icon.service.js';
 const IconController = {
     create: async function (req, res) {
         try {
-            console.log(req.filesn);
             const icon = await IconService.create(req.body);
             res.json(icon);
-            console.log(icon);
         } catch (error) {
             res.status(500).json(error);
         }

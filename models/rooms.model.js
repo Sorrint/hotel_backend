@@ -2,9 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 const ObjectIdType = Schema.Types.ObjectId;
 
 const Room = new mongoose.Schema({
-    id: { type: Number },
     number: { type: Number },
-    type: { type: String },
+    type: { type: ObjectIdType, ref: 'roomType' },
     name: { type: String },
     title: { type: String },
     priceList: { type: Object },

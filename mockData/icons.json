@@ -2,7 +2,7 @@
     {
         "_id": "6353ba0ab0400a4ce0b2c099",
         "name": "rooms",
-        "content": "<svg width='28' height='28' viewBox='0 0 96 96' fill='none' xmlns='http://wwww3.org/2000/svg'><path d='M48 27H48.5V26.5V5.5H90.5V47.5H69.5H69V48V90.5H48H5.5V48V27H48Z' stroke='black' stroke-width='4'/></svg>"
+        "content": "<svg width='28' height='28' viewBox='0 0 96 96' fill='none' xmlns='http://wwww3.org/2000/svg'><path d='M48 27H48.5V26.5V5.5H90.5V47.5H69.5H69V48V90.5H48H5.5V48V27H48Z' stroke='black' strokeWidth='4'/></svg>"
     },
     {
         "_id": "6353ba0ab0400a4ce0b2c100",
