@@ -17,9 +17,7 @@ const UserService = {
         return users;
     },
     create: async function (user) {
-        // const createdUser = new User(user);
         const createdUser = await User.create(user);
-        // await createdUser.save();
         return createdUser;
     },
     update: async function (user) {

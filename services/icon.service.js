@@ -1,4 +1,4 @@
-import Icon from '../models/icons.model.js';
+import Icon from '../models/icon.model.js';
 
 const IconService = {
     getAll: async function () {

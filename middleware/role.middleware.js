@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import Tokens from '../config/config.json' assert { type: 'json' };
+import config from 'config';
 
 export const roleMiddleware = (roles) => {
     return async function (req, res, next) {
@@ -12,8 +12,7 @@ export const roleMiddleware = (roles) => {
             if (!token) {
                 return res.status(401).json({ message: 'Пользователь не авторизован' });
             }
-            const { secretToken } = Tokens;
-            const { roles: userRoles } = jwt.verify(token, secretToken);
+            const { roles: userRoles } = jwt.verify(token, config.get('accessSecret'));
             let hasRole = false;
             userRoles.forEach((role) => {
                 if (roles.includes(role)) {

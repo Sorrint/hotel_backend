@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import Tokens from '../config/config.json' assert { type: 'json' };
+import config from 'config';
 
 export const authMiddleware = async (req, res, next) => {
     if (req.method === 'OPTIONS') {
@@ -11,8 +11,7 @@ export const authMiddleware = async (req, res, next) => {
         if (!token) {
             return res.status(401).json({ message: 'Пользователь не авторизован' });
         }
-        const { secretToken } = Tokens;
-        const decodedData = jwt.verify(token, secretToken);
+        const decodedData = jwt.verify(token, config.get('accessSecret'));
         req.user = decodedData;
         next();
     } catch (error) {

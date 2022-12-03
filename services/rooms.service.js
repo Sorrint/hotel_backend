@@ -1,4 +1,4 @@
-import Room from '../models/rooms.model.js';
+import Room from '../models/room.model.js';
 
 const RoomsService = {
     create: async function (room) {
