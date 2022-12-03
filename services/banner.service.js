@@ -1,4 +1,4 @@
-import Banner from '../models/banners.model.js';
+import Banner from '../models/banner.model.js';
 
 const BannerService = {
     getAll: async function () {

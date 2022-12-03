@@ -1,4 +1,4 @@
-import RoomType from '../models/roomTypes.model.js';
+import RoomType from '../models/roomType.model.js';
 
 const RoomTypeService = {
     getAll: async function () {

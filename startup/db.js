@@ -1,16 +1,17 @@
 import mongoose from 'mongoose';
-import { DB_CONFIG, DB_CLOUD_CONFIG } from '../config/db.config.js';
+import config from 'config';
+// import { DB_CONFIG, DB_CLOUD_CONFIG } from '../config/db.config.js';
 import chalk from 'chalk';
 import models from '../models/index.js';
 import bannersMock from '../mockData/banners.json' assert { type: 'json' };
-import menuMock from '../mockData/menuItems.json' assert { type: 'json' };
 import roomMock from '../mockData/rooms.json' assert { type: 'json' };
 import iconMock from '../mockData/icons.json' assert { type: 'json' };
 import roomTypeMock from '../mockData/roomTypes.json' assert { type: 'json' };
+import userMock from '../mockData/users.json' assert { type: 'json' };
 import roleMock from '../mockData/roles.json' assert { type: 'json' };
 import db from '../models/index.js';
 
-const URL = DB_CLOUD_CONFIG.URL;
+// const URL = DB_CLOUD_CONFIG.URL;
 const generateSimpleEntity = (data, model) => {
     return Promise.all(
         data.map(async ({ _id, ...exampleData }) => {
@@ -72,13 +73,6 @@ async function setInitialData() {
         console.log(`${chalk.red('Banners resolved DB x')}`);
     }
 
-    const menuData = await generateSimpleEntity(menuMock, db.menuItems);
-    if (menuData.length) {
-        console.log(`${chalk.yellow('Menu items in DB')} ${chalk.green('✓')}`);
-    } else {
-        console.log(`${chalk.red('Menu items resolved DB x')}`);
-    }
-
     const iconsData = await generateSimpleEntity(iconMock, db.icon);
     if (iconsData.length) {
         console.log(`${chalk.yellow('Icons in DB')} ${chalk.green('✓')}`);
@@ -98,6 +92,13 @@ async function setInitialData() {
         console.log(`${chalk.yellow('Roles in DB')} ${chalk.green('✓')}`);
     } else {
         console.log(`${chalk.red('Roles resolved DB x')}`);
+    }
+
+    const usersData = await generateSimpleEntity(userMock, db.user);
+    if (usersData.length) {
+        console.log(`${chalk.yellow('Users in DB')} ${chalk.green('✓')}`);
+    } else {
+        console.log(`${chalk.red('Users resolved DB x')}`);
     }
     const rooms = await Promise.all(
         roomMock.map(async ({ _id, ...roomData }) => {
@@ -131,19 +132,20 @@ async function setInitialData() {
     }
 }
 
-export function startDB() {
-    mongoose.connect(`mongodb://${DB_CONFIG.HOST}:${DB_CONFIG.PORT}/${DB_CONFIG.DB}`);
-    // mongoose
-    //     .connect(URL, { dbName: 'hotel' })
-    //     .then(() => console.log('DB ok'))
-    //     .catch((err) => console.log(err));
+export async function startDB() {
+    try {
+        const db = mongoose.connection;
+        db.on('error', () => {
+            console.log(`${chalk.red('x MongoDB stasus: not connected')}`);
+        });
+        db.once('open', function () {
+            setInitialData();
+            console.log(`${chalk.yellow('MongoDB status: ')}${chalk.green('Connected ✓')}`);
+        });
+        await mongoose.connect(config.get('mongoUri'), { dbName: 'hotel' });
 
-    const db = mongoose.connection;
-    db.on('error', () => {
-        console.log(`${chalk.red('x MongoDB stasus: not connected')}`);
-    });
-    db.once('open', function () {
-        console.log(`${chalk.yellow('MongoDB status: ')}${chalk.green('Connected ✓')}`);
-    });
-    setInitialData();
+        // await mongoose.connect(`mongodb://${DB_CONFIG.HOST}:${DB_CONFIG.PORT}/${DB_CONFIG.DB}`);
+    } catch (error) {
+        console.log(chalk.red(error.message));
+    }
 }

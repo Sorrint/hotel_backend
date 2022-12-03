@@ -12,7 +12,9 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(fileUpload({}));
+
 startDB();
+
 Routes(app);
 
 export default app;
