@@ -4,7 +4,7 @@ const BannerController = {
     getAll: async function (req, res) {
         try {
             const banners = await BannerService.getAll();
-            return res.json(banners);
+            return res.status(200).json(banners);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -12,7 +12,7 @@ const BannerController = {
     getOne: async function (req, res) {
         try {
             const banner = await BannerService.getOne(req.params.id);
-            return res.json(banner);
+            return res.status(200).json(banner);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -20,7 +20,7 @@ const BannerController = {
     create: async function (req, res) {
         try {
             const banner = await BannerService.create(req.body);
-            res.json(banner);
+            res.status(201).json(banner);
         } catch (error) {
             res.status(500).json(error);
         }

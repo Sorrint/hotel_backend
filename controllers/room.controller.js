@@ -3,10 +3,8 @@ import RoomsService from '../services/rooms.service.js';
 const RoomController = {
     create: async function (req, res) {
         try {
-            console.log(req.filesn);
             const room = await RoomsService.create(req.body);
-            res.json(room);
-            console.log(room);
+            res.status(201).json(room);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -15,7 +13,7 @@ const RoomController = {
     getAll: async function (req, res) {
         try {
             const rooms = await RoomsService.getAll();
-            return res.json(rooms);
+            return res.status(200).json(rooms);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -23,7 +21,7 @@ const RoomController = {
     getOne: async function (req, res) {
         try {
             const room = await RoomsService.getOne(req.params.id);
-            return res.json(room);
+            return res.status(200).json(room);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -31,7 +29,7 @@ const RoomController = {
     update: async function (req, res) {
         try {
             const updatedRoom = await RoomsService.update(req.body);
-            return res.json(updatedRoom);
+            return res.status(200).json(updatedRoom);
         } catch (error) {
             res.status(500).json(error.message);
         }
@@ -39,7 +37,7 @@ const RoomController = {
     delete: async function (req, res) {
         try {
             const room = await RoomsService.delete(req.params.id);
-            return res.json(room);
+            return res.status(200).json(room);
         } catch (error) {
             res.status(500).json(error);
         }

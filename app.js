@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { urlencoded } from 'express';
 import fileUpload from 'express-fileupload';
 import { startDB } from './startup/db.js';
 import { Routes } from './routes/index.js';
@@ -11,6 +11,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 app.use(fileUpload({}));
 
 startDB();
