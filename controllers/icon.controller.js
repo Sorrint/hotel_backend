@@ -4,7 +4,7 @@ const IconController = {
     create: async function (req, res) {
         try {
             const icon = await IconService.create(req.body);
-            res.json(icon);
+            res.status(201).json(icon);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -13,7 +13,7 @@ const IconController = {
     getAll: async function (req, res) {
         try {
             const icons = await IconService.getAll();
-            return res.json(icons);
+            return res.status(200).json(icons);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -21,7 +21,7 @@ const IconController = {
     getOne: async function (req, res) {
         try {
             const icon = await IconService.getOne(req.params.id);
-            return res.json(icon);
+            return res.status(200).json(icon);
         } catch (error) {
             res.status(500).json(error);
         }
@@ -29,7 +29,7 @@ const IconController = {
     update: async function (req, res) {
         try {
             const updatedRoom = await IconService.update(req.body);
-            return res.json(updatedRoom);
+            return res.status(200).json(updatedRoom);
         } catch (error) {
             res.status(500).json(error.message);
         }
@@ -37,7 +37,7 @@ const IconController = {
     delete: async function (req, res) {
         try {
             const icon = await IconService.delete(req.params.id);
-            return res.json(icon);
+            return res.status(200).json(icon);
         } catch (error) {
             res.status(500).json(error);
         }
