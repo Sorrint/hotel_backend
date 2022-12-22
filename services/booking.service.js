@@ -9,8 +9,8 @@ const BookingService = {
         if (!id) {
             throw new Error('не указан ID');
         }
-        const booking = await Booking.findByIdAndDelete(id);
-        return booking;
+        await Booking.findByIdAndDelete(id);
+        return null;
     },
     getAll: async function () {
         const bookings = await Booking.find();
