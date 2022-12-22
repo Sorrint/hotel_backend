@@ -6,7 +6,7 @@ const router = new Router();
 router.post('/', RoomController.create);
 router.get('/', RoomController.getAll);
 router.get('/:id', RoomController.getOne);
-router.put('/', RoomController.update);
+router.post('/:roomId', RoomController.update);
 router.delete('/:id', RoomController.delete);
 
 export default router;

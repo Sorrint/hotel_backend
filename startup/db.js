@@ -3,6 +3,7 @@ import config from 'config';
 // import { DB_CONFIG, DB_CLOUD_CONFIG } from '../config/db.config.js';
 import chalk from 'chalk';
 import models from '../models/index.js';
+import counterMock from '../mockData/counter.json' assert { type: 'json' };
 import bannersMock from '../mockData/banners.json' assert { type: 'json' };
 import roomMock from '../mockData/rooms.json' assert { type: 'json' };
 import iconMock from '../mockData/icons.json' assert { type: 'json' };
@@ -66,6 +67,13 @@ const findRoomType = (typeId, types) => {
 };
 
 async function setInitialData() {
+    const countersData = await generateSimpleEntity(counterMock, db.counter);
+    if (countersData.length) {
+        console.log(`${chalk.yellow('Counter in DB')} ${chalk.green('✓')}`);
+    } else {
+        console.log(`${chalk.red('Counter resolved DB x')}`);
+    }
+
     const bannersData = await generateSimpleEntity(bannersMock, db.banners);
     if (bannersData.length) {
         console.log(`${chalk.yellow('Banners in DB')} ${chalk.green('✓')}`);

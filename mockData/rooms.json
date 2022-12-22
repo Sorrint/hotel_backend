@@ -42,7 +42,7 @@
         "area": 70,
         "countOfRooms": 2,
         "maxNumberOfPersons": 6,
-        "booking": true,
+        "booking": [],
         "image": "../../img/luxe_11_1.jpg",
         "className": "_luxe-11"
     },
@@ -89,7 +89,7 @@
         "area": 60,
         "countOfRooms": 2,
         "maxNumberOfPersons": 5,
-        "booking": false,
+        "booking": [],
         "image": "../../img/luxe_16_1.jpg",
         "className": "_luxe-16"
     },
@@ -136,7 +136,7 @@
         "area": 45,
         "countOfRooms": 2,
         "maxNumberOfPersons": 4,
-        "booking": false,
+        "booking": [],
         "image": "../../img/luxe_12_1.jpg",
         "className": "_luxe-12"
     },
@@ -184,7 +184,7 @@
         "area": 60,
         "countOfRooms": 2,
         "maxNumberOfPersons": 5,
-        "booking": false,
+        "booking": [],
         "image": "../../img/luxe_14_1.jpg",
         "className": "_luxe-14"
     },
@@ -231,7 +231,7 @@
         "area": 60,
         "countOfRooms": 2,
         "maxNumberOfPersons": 5,
-        "booking": true,
+        "booking": [],
         "image": "../../img/luxe_15_1.jpg",
         "className": "_luxe-15"
     },
@@ -278,7 +278,7 @@
         "area": 24,
         "countOfRooms": 1,
         "maxNumberOfPersons": 3,
-        "booking": false,
+        "booking": [],
         "image": "../../img/comfort_6_1.jpg",
         "className": "_comfort-6"
     },
@@ -325,7 +325,7 @@
         "area": 24,
         "countOfRooms": 1,
         "maxNumberOfPersons": 3,
-        "booking": false,
+        "booking": [],
         "image": "../../img/comfort_7_1.jpg",
         "className": "_comfort-7"
     },
@@ -372,7 +372,7 @@
         "area": 24,
         "countOfRooms": 1,
         "maxNumberOfPersons": 4,
-        "booking": true,
+        "booking": [],
         "image": "../../img/comfort_9_1.jpg",
         "className": "_comfort-9"
     },
@@ -419,7 +419,7 @@
         "area": 12,
         "countOfRooms": 1,
         "maxNumberOfPersons": 2,
-        "booking": true,
+        "booking": [],
         "image": "../../img/econom_8_1.jpg",
         "className": "_econom-8"
     },
@@ -466,7 +466,7 @@
         "area": 15,
         "countOfRooms": 1,
         "maxNumberOfPersons": 3,
-        "booking": false,
+        "booking": [],
         "image": "../../img/econom_5_1.jpg",
         "className": "_econom-5"
     }

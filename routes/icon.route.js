@@ -5,8 +5,5 @@ const router = new Router();
 
 router.post('/', IconController.create);
 router.get('/', IconController.getAll);
-// router.get('/:id', IconController.getOne);
-// router.put('/', IconController.update);
-// router.delete('/:id', IconController.delete);
 
 export default router;

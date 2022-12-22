@@ -16,6 +16,14 @@ const UserController = {
         } catch (error) {
             res.status(500).json(error);
         }
+    },
+    update: async function (req, res) {
+        try {
+            const updatedUser = await UserService.update(req.body);
+            return res.status(200).json(updatedUser);
+        } catch (error) {
+            res.status(500).json(error.message);
+        }
     }
 };
 

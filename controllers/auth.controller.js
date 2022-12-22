@@ -43,7 +43,7 @@ const AuthController = {
             }
             const tokens = TokenService.generateAccessToken({ _id: user._id });
             await TokenService.saveRefreshToken(user._id, tokens.refreshToken);
-            return res.status(200).json({ ...tokens, userId: user._id });
+            return res.status(200).json({ ...tokens, userId: user._id, roles: user.roles });
         } catch (error) {
             console.log(error);
             res.status(500).json({ message: 'Login error' });
@@ -54,6 +54,15 @@ const AuthController = {
             const { refreshToken } = req.body;
             const data = TokenService.validateToken(refreshToken);
             res.status(200).json(data);
+        } catch (error) {
+            res.status(500).json({ message: 'На сервере произошла ошибка' });
+        }
+    },
+    getRoles: async function (req, res) {
+        try {
+            const { userId } = req.body;
+            const data = await UserService.getOne(userId);
+            res.status(200).json(data.roles);
         } catch (error) {
             res.status(500).json({ message: 'На сервере произошла ошибка' });
         }

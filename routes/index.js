@@ -7,8 +7,9 @@ import RoomTypeRoute from './roomTypes.route.js';
 import AuthRoute from './auth.route.js';
 import RoleRoute from './role.route.js';
 import UserRoute from './user.route.js';
-import TokenRoute from './token.route.js';
 import BookingRoute from './booking.route.js';
+import ReviewRoute from './review.route.js';
+
 import { check } from 'express-validator';
 const router = new Router({ mergeParams: true });
 
@@ -16,6 +17,7 @@ router.use('/banners', BannerRoute);
 router.use('/booking', BookingRoute);
 router.use('/rooms', RoomRoute);
 router.use('/icons', IconRoute);
+router.use('/reviews', ReviewRoute);
 router.use('/roomTypes', RoomTypeRoute);
 router.use(
     '/auth',
@@ -26,7 +28,6 @@ router.use(
     ],
     AuthRoute
 );
-router.use('/token', TokenRoute);
 router.use('/roles', RoleRoute);
 router.use('/users', UserRoute);
 
